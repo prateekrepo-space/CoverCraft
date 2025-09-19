@@ -1,6 +1,5 @@
 import os
 import json
-import re
 import google.generativeai as genai
 from flask import Flask, request, jsonify
 from flask_cors import CORS
@@ -9,15 +8,7 @@ import PyPDF2
 
 load_dotenv()
 app = Flask(__name__)
-
-allowed_origins = [
-    "http://localhost:3000",
-    "http://localhost:5173",
-    "https://cover-craft18.vercel.app",
-    re.compile(r"https://cover-craft18-git-.*\.vercel\.app")
-]
-
-CORS(app, resources={r"/generate-letter": {"origins": allowed_origins}})
+CORS(app)
 
 try:
     api_key = os.environ.get("GEMINI_API_KEY")

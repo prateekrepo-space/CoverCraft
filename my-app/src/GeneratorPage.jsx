@@ -320,7 +320,7 @@ function GeneratorPage() {
       });
     }, 50);
   };
-
+  
   const handleFileRemove = () => {
     setResumeFile(null);
     setUploadProgress(0);
@@ -339,7 +339,8 @@ function GeneratorPage() {
     formData.append('userSkills', userSkills);
     formData.append('companyInfo', companyInfo);
     try {
-        const response = await axios.post(import.meta.env.VITE_API_BASE_URL + '/generate-letter', formData, {
+        const apiUrl = `${import.meta.env.VITE_API_BASE_URL}/generate-letter`;
+        const response = await axios.post(apiUrl, formData, {
             headers: { 'Content-Type': 'multipart/form-data' },
         });
         setGeneratedLetter(response.data);
