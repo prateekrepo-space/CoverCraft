@@ -8,7 +8,7 @@ import PyPDF2
 
 load_dotenv()
 app = Flask(__name__)
-CORS(app, resources={r"/generate-letter": {"origins": ["http://localhost:3000", "http://localhost:5173"]}})
+CORS(app, resources={r"/generate-letter": {"origins": ["https://cover-craft18.vercel.app", "http://localhost:3000", "http://localhost:5173"]}})
 
 try:
     api_key = os.environ.get("GEMINI_API_KEY")
@@ -81,7 +81,6 @@ def generate_letter_route():
 
         response = model.generate_content(prompt, generation_config=generation_config)
         
-        # The response text should be a valid JSON string. We parse it to confirm.
         letter_data = json.loads(response.text)
         
         return jsonify(letter_data)
