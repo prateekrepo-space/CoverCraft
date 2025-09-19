@@ -345,15 +345,15 @@ function GeneratorPage() {
         });
         setGeneratedLetter(response.data);
         setEditableLetter(response.data);
-        toast.success('Cover Letter Generated! Scroll down to see it.');
+        toast.success('Cover Letter Generated! Scroll down!');
     } catch (err) {
-        setError('An error occurred. Is the backend server running?');
+        setError('An error occurred.');
     } finally {
         setIsLoading(false);
     }
   };
 
-  const handleDownloadPDF = () => {
+const handleDownloadPDF = () => {
     if (!editableLetter) return;
     const doc = new jsPDF();
     const {
@@ -365,43 +365,44 @@ function GeneratorPage() {
     const margin = 15;
     let y = 20;
 
-    doc.setFontSize(18);
+    doc.setFontSize(22);
     doc.setFont('times', 'bold');
     doc.text(senderName || '', doc.internal.pageSize.getWidth() - margin, y, { align: 'right' });
-    y += 7;
+    y += 8;
 
-    doc.setFontSize(10);
+    doc.setFontSize(12);
     doc.setFont('times', 'normal');
     doc.text(senderAddress || '', doc.internal.pageSize.getWidth() - margin, y, { align: 'right' });
-    y += 5;
+    y += 6;
     doc.text(senderContact || '', doc.internal.pageSize.getWidth() - margin, y, { align: 'right' });
-    y += 15;
+    y += 18;
 
     doc.text(date || '', margin, y);
-    y += 10;
+    y += 12;
 
     doc.setFont('times', 'bold');
     doc.text(recipientName || '', margin, y);
-    y += 5;
+    y += 6;
     doc.setFont('times', 'normal');
     doc.text(recipientTitle || '', margin, y);
-    y += 5;
+    y += 6;
     doc.text(companyName || '', margin, y);
-    y += 5;
+    y += 6;
     doc.text(companyAddress || '', margin, y);
-    y += 15;
+    y += 18;
 
     doc.setFont('times', 'bold');
     doc.text(salutation || '', margin, y);
-    y += 10;
+    y += 12;
 
     doc.setFont('times', 'normal');
+    doc.setFontSize(12);
     const bodyLines = doc.splitTextToSize((body || '').replace(/\n\n/g, '\n \n'), doc.internal.pageSize.getWidth() - margin * 2);
     doc.text(bodyLines, margin, y);
-    y += (bodyLines.length * 5) + 10;
+    y += (bodyLines.length * 6) + 12;
 
     doc.text(closing || '', margin, y);
-    y += 10;
+    y += 12;
     doc.text(signature || '', margin, y);
 
     doc.save(`${(senderName || 'cover_letter').replace(' ', '_')}_Cover_Letter.pdf`);
