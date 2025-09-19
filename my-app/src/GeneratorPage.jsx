@@ -339,7 +339,7 @@ function GeneratorPage() {
     formData.append('userSkills', userSkills);
     formData.append('companyInfo', companyInfo);
     try {
-        const response = await axios.post('http://127.0.0.1:5000/generate-letter', formData, {
+        const response = await axios.post(import.meta.env.VITE_API_BASE_URL + '/generate-letter', formData, {
             headers: { 'Content-Type': 'multipart/form-data' },
         });
         setGeneratedLetter(response.data);
@@ -421,13 +421,13 @@ function GeneratorPage() {
       <header className="header">
         <div className="header-content">
           <div className="logo-container">
-           <svg className="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-  <polyline points="14 2 14 8 20 8"></polyline>
-  <line x1="16" y1="13" x2="8" y2="13"></line>
-  <line x1="16" y1="17" x2="8" y2="17"></line>
-  <polyline points="10 9 9 9 8 9"></polyline>
-</svg>
+            <svg className="logo-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
             <h1 className="logo-text">CoverCraft</h1>
           </div>
         </div>
@@ -499,9 +499,9 @@ function GeneratorPage() {
           
           {step === 3 && (
             <div style={{padding: '0 2.5rem 2.5rem'}}>
-              <button className="analyze-btn" style={{width: '100%'}} onClick={handleGenerateClick} disabled={isLoading || !resumeFile || !jobDescription}>
-  {isLoading ? (<><div className="spinner"></div><span>Crafting...</span></>) : 'Generate Cover Letter'}
-  </button>
+              <button className="analyze-btn" onClick={handleGenerateClick} disabled={isLoading || !resumeFile || !jobDescription}>
+                {isLoading ? (<><div className="spinner"></div><span>Crafting...</span></>) : 'Generate Cover Letter'}
+              </button>
             </div>
           )}
         </motion.div>
